@@ -7,7 +7,7 @@ import { ButtonComponent } from './atoms/button.component';
 import { ProductCardComponent } from './molecules/product-card.component';
 import { ProductListComponent } from './organisms/product-list.component';
 import { MainLayoutComponent } from './templates/main-layout.component';
-import { HomePageComponent } from './pages/home-page.component';
+import { HomePageComponent } from './pages/home-page/home-page.component';
 
 @NgModule({
   declarations: [
