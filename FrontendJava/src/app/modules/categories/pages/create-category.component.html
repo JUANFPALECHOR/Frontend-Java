@@ -1,0 +1,36 @@
+<!-- Archivo: create-category.component.html -->
+<div class="create-category-container">
+  <h2>Crear Nueva Categoría</h2>
+  <form (ngSubmit)="onSubmit()" #categoryForm="ngForm">
+    <div>
+      <label for="name">Nombre de la Categoría:</label>
+      <!-- Cambiar `required="true"` a `[required]="true"`, y los valores de `minlength` y `maxlength` a números -->
+      <app-input
+        id="name"
+        name="name"
+        [(ngModel)]="category.name"
+        [required]="true"
+        [minlength]="1"
+        [maxlength]="50">
+      </app-input>
+    </div>
+
+    <div>
+      <label for="description">Descripción:</label>
+      <!-- Aplicar la misma lógica aquí -->
+      <app-textarea
+        id="description"
+        name="description"
+        [(ngModel)]="category.description"
+        [required]="true"
+        [maxlength]="90">
+      </app-textarea>
+    </div>
+
+    <app-button
+      label="Crear Categoría"
+      type="submit"
+      [disabled]="!categoryForm.form.valid">
+    </app-button>
+  </form>
+</div>
