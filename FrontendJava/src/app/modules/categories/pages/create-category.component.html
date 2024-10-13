@@ -1,36 +1,44 @@
-<!-- Archivo: create-category.component.html -->
 <div class="create-category-container">
   <h2>Crear Nueva Categoría</h2>
-  <form (ngSubmit)="onSubmit()" #categoryForm="ngForm">
+  <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
     <div>
       <label for="name">Nombre de la Categoría:</label>
-      <!-- Cambiar `required="true"` a `[required]="true"`, y los valores de `minlength` y `maxlength` a números -->
       <app-input
         id="name"
-        name="name"
-        [(ngModel)]="category.name"
+        formControlName="name"
         [required]="true"
         [minlength]="1"
         [maxlength]="50">
       </app-input>
-    </div>
+
+      <!-- Mostrar error si el campo es inválido -->
+      <div *ngIf="categoryForm?.get('name')?.invalid && categoryForm?.get('name')?.touched">
+        <small *ngIf="categoryForm?.get('name')?.errors?.['required']">Este campo es requerido</small>
+        <small *ngIf="categoryForm?.get('name')?.errors?.['minlength']">Debe tener al menos 1 carácter</small>
+        <small *ngIf="categoryForm?.get('name')?.errors?.['maxlength']">No puede exceder 50 caracteres</small>
+      </div>
+    </div> <!-- Cierre del div del campo "Nombre" -->
 
     <div>
       <label for="description">Descripción:</label>
-      <!-- Aplicar la misma lógica aquí -->
       <app-textarea
         id="description"
-        name="description"
-        [(ngModel)]="category.description"
+        formControlName="description"
         [required]="true"
         [maxlength]="90">
       </app-textarea>
-    </div>
+
+      <!-- Mostrar error si el campo es inválido -->
+      <div *ngIf="categoryForm?.get('description')?.invalid && categoryForm?.get('description')?.touched">
+        <small *ngIf="categoryForm?.get('description')?.errors?.['required']">Este campo es requerido</small>
+        <small *ngIf="categoryForm?.get('description')?.errors?.['maxlength']">No puede exceder 90 caracteres</small>
+      </div>
+    </div> <!-- Cierre del div del campo "Descripción" -->
 
     <app-button
       label="Crear Categoría"
       type="submit"
-      [disabled]="!categoryForm.form.valid">
+      [disabled]="categoryForm.invalid">
     </app-button>
   </form>
 </div>

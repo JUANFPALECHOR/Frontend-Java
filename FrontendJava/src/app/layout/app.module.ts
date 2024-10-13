@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http'; 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CategoryModule } from '../modules/categories/category.module';
 
@@ -20,7 +20,8 @@ import { CategoryModule } from '../modules/categories/category.module';
     AppRoutingModule, // Módulo con las rutas definidas
     RouterModule, // Módulo de rutas para manejar la navegación
     HttpClientModule,
-    CategoryModule
+    CategoryModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

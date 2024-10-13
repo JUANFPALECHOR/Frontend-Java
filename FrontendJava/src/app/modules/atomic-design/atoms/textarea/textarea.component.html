@@ -1,11 +1,11 @@
 <textarea
   [id]="id"
   [name]="name"
-  [(ngModel)]="value"
   [placeholder]="placeholder"
   [rows]="rows"
   [cols]="cols"
-  [required]="required"
-  [maxlength]="maxlength"
-  class="app-textarea">
-</textarea>
+  [attr.maxlength]="maxlength"
+  [attr.required]="required ? true : null"
+  [value]="value"
+  (input)="onValueChange($event)"
+></textarea>

@@ -2,9 +2,10 @@
   [id]="id"
   [name]="name"
   [type]="type"
-  [(ngModel)]="value"
   [placeholder]="placeholder"
-  [required]="required"
-  [minlength]="minlength"
-  [maxlength]="maxlength"
-  class="app-input">
+  [attr.minlength]="minlength"
+  [attr.maxlength]="maxlength"
+  [attr.required]="required ? true : null"
+  [value]="value"
+  (input)="onValueChange($event)"
+/>

@@ -13,9 +13,13 @@ export class CategoryService {
   constructor(private readonly http: HttpClient) {}
 
   // Método para crear una nueva categoría
-  createCategory(category: any): Observable<any> {
-    return this.http.post(this.apiUrl, category);
+  createCategory(category: CategoryRequest): Observable<void> {
+    return this.http.post<void>(this.apiUrl, category);
   }
 
-  
+}
+
+export interface CategoryRequest {
+  name: string;
+  description: string;
 }

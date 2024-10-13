@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { CreateCategoryComponent } from './pages/create-category.component';
 import { AtomicModule } from '../atomic-design/atomic.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -19,7 +19,7 @@ const routes: Routes = [
   ],
   imports: [
     CommonModule,
-    FormsModule,
+    ReactiveFormsModule, 
     RouterModule.forChild(routes),  // Usar `forChild` para rutas de submódulos
     AtomicModule
 
