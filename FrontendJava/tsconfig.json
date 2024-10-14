@@ -1,27 +1,22 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
-  "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
+    "target": "es2015",                      // Mantén el target en ES2015 o superior
+    "module": "esnext",                      // Cambiado a esnext para soportar ESM (ECMAScript Modules)
+    "esModuleInterop": true,                 // Ya está correcto
+    "moduleResolution": "node",              // Resolver módulos usando el sistema node
+    "emitDecoratorMetadata": true,           // Decoradores son necesarios para Angular
+    "experimentalDecorators": true,          // Decoradores experimentales
     "sourceMap": true,
+    "outDir": "./dist/out-tsc",
     "declaration": false,
     "downlevelIteration": true,
-    "experimentalDecorators": true,
-    "moduleResolution": "node",
-    "importHelpers": true,
-    "target": "es2020",
-    "module": "es2020",
-    "lib": [
-      "es2020",
-      "dom"
-    ]
+    "strict": true,
+    "skipLibCheck": true,
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2018", "dom"],                // Soporte para ES2018 y APIs del navegador
+    "allowJs": true,      
+    "baseUrl": "src",                    // Permitir archivos JS
+    "resolveJsonModule": true                // Si necesitas procesar archivos JSON
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

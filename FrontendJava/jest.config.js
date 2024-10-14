@@ -1,18 +1,22 @@
 module.exports = {
-    preset: 'jest-preset-angular',
-    setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
-    testEnvironment: 'jsdom',
-    moduleFileExtensions: ['ts', 'html', 'js', 'json'],
-    transform: {
-      '^.+\\.(ts|js|html)$': 'ts-jest',
+  preset: 'jest-preset-angular',
+  testMatch: ['**/+(*.)+(spec).+(ts)'],
+  setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
+  globals: {
+    'ts-jest': {
+      tsconfig: '<rootDir>/tsconfig.spec.json',
+      useESM: true,
+      stringifyContentPathRegex: '\\.(html|svg)$',
     },
-    transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
-    testMatch: ['**/+(*.)+(spec).+(ts|js)?(x)'],
-    collectCoverage: true,
-    coverageReporters: ['html'],
-    coverageDirectory: '<rootDir>/coverage',
-    moduleNameMapper: {
-      '^@app/(.*)$': '<rootDir>/src/app/$1',
-    },
-  };
-  
+  },
+  moduleNameMapper: {
+    '^src/(.*)$': '<rootDir>/src/$1',
+    '\\.(css|scss)$': 'jest-transform-css',
+  },
+  transform: {
+    '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
+  },
+  transformIgnorePatterns: ['node_modules/(?!(.*\\.mjs$))'],
+  resolver: 'jest-preset-angular/build/resolvers/ng-jest-resolver.js',
+  extensionsToTreatAsEsm: ['.ts'],
+};

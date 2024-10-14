@@ -36,7 +36,6 @@ export class CreateCategoryComponent implements OnInit {
       this.categoryService.createCategory(this.categoryForm.value).subscribe({
         next: (response) => {
           console.log('Categoría creada con éxito:', response);
-          this.categoryForm?.reset();
           //this.router.navigate(['/categories']);
         },
         error: (error) => {
