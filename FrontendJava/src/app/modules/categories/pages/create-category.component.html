@@ -1,0 +1,44 @@
+<div class="create-category-container">
+  <h2>Crear Nueva Categoría</h2>
+  <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="name">Nombre de la Categoría:</label>
+      <app-input
+        id="name"
+        formControlName="name"
+        [required]="true"
+        [minlength]="1"
+        [maxlength]="50">
+      </app-input>
+
+      <!-- Mostrar error si el campo es inválido -->
+      <div *ngIf="categoryForm?.get('name')?.invalid && categoryForm?.get('name')?.touched">
+        <small *ngIf="categoryForm?.get('name')?.errors?.['required']">Este campo es requerido</small>
+        <small *ngIf="categoryForm?.get('name')?.errors?.['minlength']">Debe tener al menos 1 carácter</small>
+        <small *ngIf="categoryForm?.get('name')?.errors?.['maxlength']">No puede exceder 50 caracteres</small>
+      </div>
+    </div> <!-- Cierre del div del campo "Nombre" -->
+
+    <div>
+      <label for="description">Descripción:</label>
+      <app-textarea
+        id="description"
+        formControlName="description"
+        [required]="true"
+        [maxlength]="90">
+      </app-textarea>
+
+      <!-- Mostrar error si el campo es inválido -->
+      <div *ngIf="categoryForm?.get('description')?.invalid && categoryForm?.get('description')?.touched">
+        <small *ngIf="categoryForm?.get('description')?.errors?.['required']">Este campo es requerido</small>
+        <small *ngIf="categoryForm?.get('description')?.errors?.['maxlength']">No puede exceder 90 caracteres</small>
+      </div>
+    </div> <!-- Cierre del div del campo "Descripción" -->
+
+    <app-button
+      label="Crear Categoría"
+      type="submit"
+      [disabled]="categoryForm.invalid">
+    </app-button>
+  </form>
+</div>

@@ -1,0 +1,11 @@
+<input
+  [id]="id"
+  [name]="name"
+  [type]="type"
+  [placeholder]="placeholder"
+  [attr.minlength]="minlength"
+  [attr.maxlength]="maxlength"
+  [attr.required]="required ? true : null"
+  [value]="value"
+  (input)="onValueChange($event)"
+/>

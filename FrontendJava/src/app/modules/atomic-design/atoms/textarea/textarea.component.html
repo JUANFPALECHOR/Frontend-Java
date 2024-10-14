@@ -1,0 +1,11 @@
+<textarea
+  [id]="id"
+  [name]="name"
+  [placeholder]="placeholder"
+  [rows]="rows"
+  [cols]="cols"
+  [attr.maxlength]="maxlength"
+  [attr.required]="required ? true : null"
+  [value]="value"
+  (input)="onValueChange($event)"
+></textarea>
