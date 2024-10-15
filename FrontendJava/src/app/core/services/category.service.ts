@@ -18,12 +18,12 @@ export class CategoryService {
   }
 
   // Método actualizado para obtener categorías con paginación y orden
-  getCategories(page: number, size: number, sort: 'asc' | 'desc'): Observable<CategoryResponse[]> {
+  getCategories(page: number, size: number, orden: 'asc' | 'desc'): Observable<CategoryResponse[]> {
     // Construir parámetros de consulta
     const params = new HttpParams()
       .set('page', page.toString())
       .set('size', size.toString())
-      .set('sort', sort);
+      .set('orden', orden);
 
     // Hacer la solicitud HTTP con los parámetros
     return this.http.get<CategoryResponse[]>(`${this.apiUrl}`, { params });
