@@ -9,7 +9,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./create-category.component.css']
 })
 export class CreateCategoryComponent implements OnInit {
-  categoryForm!: FormGroup ;  // Declaramos el FormGroup para el formulario
+  categoryForm!: FormGroup;  // Declaramos el FormGroup para el formulario
+  categories: any[] = [];  // Para almacenar las categorías obtenidas
 
   constructor(
     private readonly formBuilder: FormBuilder,    // Usamos FormBuilder para crear el formulario
@@ -45,5 +46,18 @@ export class CreateCategoryComponent implements OnInit {
     } else {
       console.log('Formulario no válido');
     }
+  }
+
+  // Nuevo método para obtener categorías con paginación y ordenación
+  getCategories(page: number, size: number, orden: 'asc' | 'desc'): void {
+    this.categoryService.getCategories(page, size, orden).subscribe({
+      next: (response) => {
+        this.categories = response;  // Asigna las categorías obtenidas
+        console.log('Categorías obtenidas:', this.categories);
+      },
+      error: (error) => {
+        console.error('Error al obtener las categorías:', error);
+      }
+    });
   }
 }
