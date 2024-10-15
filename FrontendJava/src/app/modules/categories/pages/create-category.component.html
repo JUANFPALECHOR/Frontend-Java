@@ -17,7 +17,7 @@
         <small *ngIf="categoryForm?.get('name')?.errors?.['minlength']">Debe tener al menos 1 carácter</small>
         <small *ngIf="categoryForm?.get('name')?.errors?.['maxlength']">No puede exceder 50 caracteres</small>
       </div>
-    </div> <!-- Cierre del div del campo "Nombre" -->
+    </div>
 
     <div>
       <label for="description">Descripción:</label>
@@ -33,12 +33,61 @@
         <small *ngIf="categoryForm?.get('description')?.errors?.['required']">Este campo es requerido</small>
         <small *ngIf="categoryForm?.get('description')?.errors?.['maxlength']">No puede exceder 90 caracteres</small>
       </div>
-    </div> <!-- Cierre del div del campo "Descripción" -->
+    </div>
 
+    <!-- Usamos app-button en lugar del button nativo -->
     <app-button
       label="Crear Categoría"
       type="submit"
       [disabled]="categoryForm.invalid">
     </app-button>
   </form>
+
+  <hr>
+
+  <h2>Categorías</h2>
+
+  <!-- Controles para la ordenación -->
+  <div class="sort-controls">
+    <app-button label="Orden Ascendente" (click)="getCategories(1, 10, 'asc')" (keydown.enter)="getCategories(1, 10, 'asc')"></app-button>
+    <app-button label="Orden Descendente" (click)="getCategories(1, 10, 'desc')" (keydown.enter)="getCategories(1, 10, 'desc')"></app-button>
+  </div>
+
+  <hr>
+
+  <!-- Tabla para mostrar las categorías -->
+  <div class="category-list">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let category of categories">
+          <td>{{ category.id }}</td>
+          <td>{{ category.name }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Controles de paginación -->
+  <div class="pagination-controls">
+    <app-button 
+  label="Anterior" 
+  (click)="getCategories(currentPage - 1, 10, currentOrder)" 
+  [disabled]="currentPage === 1"
+  (keydown)="handleKeyPress($event)">
+</app-button>
+
+<app-button 
+  label="Siguiente" 
+  (click)="getCategories(currentPage + 1, 10, currentOrder)" 
+  [disabled]="!hasMoreCategories"
+  (keydown)="handleKeyPress($event)">
+</app-button>
+
+  </div>
 </div>

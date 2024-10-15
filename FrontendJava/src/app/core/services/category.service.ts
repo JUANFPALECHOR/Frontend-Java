@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+// Servicio ajustado para coincidir con el formato de respuesta del backend
 export class CategoryService {
   private readonly apiUrl = 'http://localhost:8090/api/categories'; 
 
@@ -18,18 +19,36 @@ export class CategoryService {
   }
 
   // Método actualizado para obtener categorías con paginación y orden
-  getCategories(page: number, size: number, orden: 'asc' | 'desc'): Observable<CategoryResponse[]> {
+  getCategories(page: number, size: number, order: 'asc' | 'desc'): Observable<CategoryResponse> {
     // Construir parámetros de consulta
     const params = new HttpParams()
       .set('page', page.toString())
       .set('size', size.toString())
-      .set('orden', orden);
+      .set('order', order);
 
     // Hacer la solicitud HTTP con los parámetros
-    return this.http.get<CategoryResponse[]>(`${this.apiUrl}`, { params });
+    return this.http.get<CategoryResponse>(this.apiUrl, { params });
   }
-
 }
+
+// Interfaces para reflejar la estructura de la respuesta
+export interface Category {
+  id: number;
+  name: string;
+}
+
+export interface CategoryResponse {
+  content: Category[];      // Array con las categorías
+  last: boolean;            // Indica si es la última página
+  totalPages: number;
+  totalElements: number;
+  size: number;
+  number: number;
+  first: boolean;
+  numberOfElements: number;
+  empty: boolean;
+}
+
 
 
 // Esta interfaz representa el objeto que envías para crear una nueva categoría.
@@ -38,18 +57,3 @@ export interface CategoryRequest {
   description: string;
 }
 
-// Esta interfaz representa una categoría individual.
-export interface Category {
-  id: number;
-  name: string;
-  description: string;
-}
-
-
-// Esta interfaz es para manejar la respuesta paginada de categorías.
-export interface CategoryResponse {
-  categories: Category[]; // Lista de categorías
-  totalElements: number;  // Total de categorías
-  totalPages: number;     // Total de páginas
-  currentPage: number;    // Página actual
-}
