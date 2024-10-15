@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CategoryService, Category } from '../../../core/services/category.service';  // Ajusta la ruta según la ubicación real
+import { CategoryService, Category } from '../../../core/services/category.service';  
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -9,23 +9,24 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./create-category.component.css']
 })
 export class CreateCategoryComponent implements OnInit {
-  categoryForm!: FormGroup;
-  categories: Category[] = [];  // Array de categorías basado en la interfaz
-  currentPage: number = 1;
-  currentOrder: 'asc' | 'desc' = 'asc';
-  hasMoreCategories: boolean = true;
+  categoryForm!: FormGroup;  // Formulario para crear categorías
+  categories: Category[] = [];  // Almacena las categorías obtenidas
+  currentPage: number = 1;  // Página actual para la paginación
+  currentOrder: 'asc' | 'desc' = 'asc';  // Orden de las categorías
+  hasMoreCategories: boolean = true;  // Indica si hay más categorías disponibles para paginación
 
   constructor(
-    private readonly formBuilder: FormBuilder,
-    private readonly categoryService: CategoryService,
-    private readonly router: Router
+    private readonly formBuilder: FormBuilder,  // Constructor para crear el formulario
+    private readonly categoryService: CategoryService,  // Servicio para manejar categorías
+    private readonly router: Router  // Router para posibles redirecciones
   ) {}
 
   ngOnInit(): void {
-    this.initializeForm();
-    this.getCategories(this.currentPage, 10, this.currentOrder);
+    this.initializeForm();  // Inicializa el formulario en la carga del componente
+    this.getCategories(this.currentPage, 10, this.currentOrder);  // Obtiene las primeras categorías
   }
 
+  // Inicializa el formulario con validaciones para los campos 'name' y 'description'
   initializeForm(): void {
     this.categoryForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
@@ -33,6 +34,7 @@ export class CreateCategoryComponent implements OnInit {
     });
   }
 
+  // Lógica al enviar el formulario para crear una nueva categoría
   onSubmit(): void {
     if (this.categoryForm?.valid) {
       console.log('Formulario enviado', this.categoryForm.value);
@@ -49,13 +51,14 @@ export class CreateCategoryComponent implements OnInit {
     }
   }
 
-  // Método para obtener categorías con paginación y ordenación
+  // Método para obtener categorías de manera paginada y ordenada
   getCategories(page: number, size: number, order: 'asc' | 'desc'): void {
     this.categoryService.getCategories(page, size, order).subscribe({
       next: (response) => {
-        // Asignar las nuevas categorías
+        // Actualiza el array de categorías con las nuevas obtenidas
         this.categories = [...this.categories, ...response.content];
-        this.hasMoreCategories = !response.last;  // Si no es la última página, se habilita el botón de "siguiente"
+        // Determina si hay más categorías para habilitar/deshabilitar la paginación
+        this.hasMoreCategories = !response.last;
         console.log('Categorías obtenidas:', this.categories);
       },
       error: (error) => {
@@ -63,13 +66,12 @@ export class CreateCategoryComponent implements OnInit {
       }
     });
   }
+
+  // Maneja la acción cuando se presiona la tecla 'Enter'
   handleKeyPress(event: KeyboardEvent): void {
     if (event.key === 'Enter') {
       event.preventDefault();
       console.log('Enter key pressed');
-      // Aquí puedes añadir la acción que deseas realizar cuando se presiona "Enter"
     }
   }  
 }
-
-

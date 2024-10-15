@@ -1,8 +1,14 @@
 <div class="create-category-container">
   <h2>Crear Nueva Categoría</h2>
+  
+  <!-- Formulario para crear una nueva categoría -->
   <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+    
+    <!-- Campo de entrada para el nombre de la categoría -->
     <div>
       <label for="name">Nombre de la Categoría:</label>
+      
+      <!-- Componente reutilizable para el input -->
       <app-input
         id="name"
         formControlName="name"
@@ -11,7 +17,7 @@
         [maxlength]="50">
       </app-input>
 
-      <!-- Mostrar error si el campo es inválido -->
+      <!-- Mostrar mensajes de error si el campo de nombre no es válido -->
       <div *ngIf="categoryForm?.get('name')?.invalid && categoryForm?.get('name')?.touched">
         <small *ngIf="categoryForm?.get('name')?.errors?.['required']">Este campo es requerido</small>
         <small *ngIf="categoryForm?.get('name')?.errors?.['minlength']">Debe tener al menos 1 carácter</small>
@@ -19,8 +25,11 @@
       </div>
     </div>
 
+    <!-- Campo de entrada para la descripción de la categoría -->
     <div>
       <label for="description">Descripción:</label>
+      
+      <!-- Componente reutilizable para el textarea -->
       <app-textarea
         id="description"
         formControlName="description"
@@ -28,14 +37,14 @@
         [maxlength]="90">
       </app-textarea>
 
-      <!-- Mostrar error si el campo es inválido -->
+      <!-- Mostrar mensajes de error si el campo de descripción no es válido -->
       <div *ngIf="categoryForm?.get('description')?.invalid && categoryForm?.get('description')?.touched">
         <small *ngIf="categoryForm?.get('description')?.errors?.['required']">Este campo es requerido</small>
         <small *ngIf="categoryForm?.get('description')?.errors?.['maxlength']">No puede exceder 90 caracteres</small>
       </div>
     </div>
 
-    <!-- Usamos app-button en lugar del button nativo -->
+    <!-- Botón para enviar el formulario, reutilizando el componente 'app-button' -->
     <app-button
       label="Crear Categoría"
       type="submit"
@@ -47,15 +56,24 @@
 
   <h2>Categorías</h2>
 
-  <!-- Controles para la ordenación -->
+  <!-- Botones para ordenar las categorías -->
   <div class="sort-controls">
-    <app-button label="Orden Ascendente" (click)="getCategories(1, 10, 'asc')" (keydown.enter)="getCategories(1, 10, 'asc')"></app-button>
-    <app-button label="Orden Descendente" (click)="getCategories(1, 10, 'desc')" (keydown.enter)="getCategories(1, 10, 'desc')"></app-button>
+    <!-- Ordenar de forma ascendente -->
+    <app-button label="Orden Ascendente" 
+      (click)="getCategories(1, 10, 'asc')" 
+      (keydown.enter)="getCategories(1, 10, 'asc')">
+    </app-button>
+
+    <!-- Ordenar de forma descendente -->
+    <app-button label="Orden Descendente" 
+      (click)="getCategories(1, 10, 'desc')" 
+      (keydown.enter)="getCategories(1, 10, 'desc')">
+    </app-button>
   </div>
 
   <hr>
 
-  <!-- Tabla para mostrar las categorías -->
+  <!-- Lista de categorías en formato de tabla -->
   <div class="category-list">
     <table>
       <thead>
@@ -65,6 +83,7 @@
         </tr>
       </thead>
       <tbody>
+        <!-- Itera sobre las categorías obtenidas y muestra los datos -->
         <tr *ngFor="let category of categories">
           <td>{{ category.id }}</td>
           <td>{{ category.name }}</td>
@@ -73,21 +92,22 @@
     </table>
   </div>
 
-  <!-- Controles de paginación -->
+  <!-- Controles de paginación para navegar entre páginas de categorías -->
   <div class="pagination-controls">
+    <!-- Botón para ir a la página anterior -->
     <app-button 
-  label="Anterior" 
-  (click)="getCategories(currentPage - 1, 10, currentOrder)" 
-  [disabled]="currentPage === 1"
-  (keydown)="handleKeyPress($event)">
-</app-button>
+      label="Anterior" 
+      (click)="getCategories(currentPage - 1, 10, currentOrder)" 
+      [disabled]="currentPage === 1"
+      (keydown)="handleKeyPress($event)">
+    </app-button>
 
-<app-button 
-  label="Siguiente" 
-  (click)="getCategories(currentPage + 1, 10, currentOrder)" 
-  [disabled]="!hasMoreCategories"
-  (keydown)="handleKeyPress($event)">
-</app-button>
-
+    <!-- Botón para ir a la página siguiente -->
+    <app-button 
+      label="Siguiente" 
+      (click)="getCategories(currentPage + 1, 10, currentOrder)" 
+      [disabled]="!hasMoreCategories"
+      (keydown)="handleKeyPress($event)">
+    </app-button>
   </div>
 </div>
