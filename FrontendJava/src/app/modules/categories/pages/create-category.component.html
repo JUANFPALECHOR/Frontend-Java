@@ -98,7 +98,7 @@
     <app-button 
       label="Anterior" 
       (click)="getCategories(currentPage - 1, 10, currentOrder)" 
-      [disabled]="currentPage === 1"
+      [disabled]="currentPage === 0"
       (keydown)="handleKeyPress($event)">
     </app-button>
 
