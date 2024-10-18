@@ -12,7 +12,7 @@ export class CreateCategoryComponent implements OnInit {
   categoryForm!: FormGroup;  // Formulario para crear categorías
   categories: Category[] = [];  // Almacena las categorías obtenidas
   currentPage: number = 0;  // Página actual para la paginación
-  currentOrder: 'asc' | 'desc' = 'asc';  // Orden de las categorías
+  currentSortDirection: 'ASC' | 'DESC' = 'ASC';  // Orden de las categorías
   hasMoreCategories: boolean = true;  // Indica si hay más categorías disponibles para paginación
 
   constructor(
@@ -23,7 +23,7 @@ export class CreateCategoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeForm();  // Inicializa el formulario en la carga del componente
-    this.getCategories(this.currentPage, 10, this.currentOrder);  // Obtiene las primeras categorías
+    this.getCategories(this.currentPage, 10, this.currentSortDirection);  // Obtiene las primeras categorías
   }
 
   // Inicializa el formulario con validaciones para los campos 'name' y 'description'
@@ -51,22 +51,19 @@ export class CreateCategoryComponent implements OnInit {
     }
   }
 
-  // Método para obtener categorías de manera paginada y ordenada
-  getCategories(page: number, size: number, order: 'asc' | 'desc'): void {
-    // Si el orden cambia, reinicia las categorías para evitar duplicación
-    if (order !== this.currentOrder) {
+  getCategories(page: number, size: number, sortDirection: 'ASC' | 'DESC'): void {
+    // Reinicia las categorías siempre que cambies de página u orden
+    if (sortDirection !== this.currentSortDirection || page !== this.currentPage) {
       this.categories = [];
-      this.currentPage = 1; // Reinicia la página cuando cambias el orden
     }
   
     // Llamar al servicio para obtener las categorías
-    this.categoryService.getCategories(page, size, order).subscribe({
+    this.categoryService.getCategories(page, size, sortDirection).subscribe({
       next: (response) => {
-        // Actualiza la lista de categorías con los nuevos datos obtenidos
         this.categories = response.content;
-        this.currentPage = page;  // Actualiza la página actual
-        this.hasMoreCategories = !response.last;  // Verifica si hay más páginas
-        this.currentOrder = order;  // Actualiza el orden actual
+        this.currentPage = page;
+        this.hasMoreCategories = !response.last;
+        this.currentSortDirection = sortDirection;
         console.log('Categorías obtenidas:', this.categories);
       },
       error: (error) => {
@@ -74,10 +71,6 @@ export class CreateCategoryComponent implements OnInit {
       }
     });
   }
-  
-  
-  
-  
   
 
   // Maneja la acción cuando se presiona la tecla 'Enter'

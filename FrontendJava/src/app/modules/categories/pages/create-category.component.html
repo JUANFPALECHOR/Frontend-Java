@@ -60,14 +60,14 @@
   <div class="sort-controls">
     <!-- Ordenar de forma ascendente -->
     <app-button label="Orden Ascendente" 
-      (click)="getCategories(1, 10, 'asc')" 
-      (keydown.enter)="getCategories(1, 10, 'asc')">
+      (click)="getCategories(0, 10, 'ASC')" 
+      (keydown.enter)="getCategories(0, 10, 'ASC')">
     </app-button>
 
     <!-- Ordenar de forma descendente -->
     <app-button label="Orden Descendente" 
-      (click)="getCategories(1, 10, 'desc')" 
-      (keydown.enter)="getCategories(1, 10, 'desc')">
+      (click)="getCategories(0, 10, 'DESC')" 
+      (keydown.enter)="getCategories(0, 10, 'DESC')">
     </app-button>
   </div>
 
@@ -97,7 +97,7 @@
     <!-- Botón para ir a la página anterior -->
     <app-button 
       label="Anterior" 
-      (click)="getCategories(currentPage - 1, 10, currentOrder)" 
+      (click)="getCategories(currentPage - 1, 10, currentSortDirection)" 
       [disabled]="currentPage === 0"
       (keydown)="handleKeyPress($event)">
     </app-button>
@@ -105,7 +105,7 @@
     <!-- Botón para ir a la página siguiente -->
     <app-button 
       label="Siguiente" 
-      (click)="getCategories(currentPage + 1, 10, currentOrder)" 
+      (click)="getCategories(currentPage + 1, 10, currentSortDirection)" 
       [disabled]="!hasMoreCategories"
       (keydown)="handleKeyPress($event)">
     </app-button>

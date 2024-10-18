@@ -30,7 +30,7 @@ describe('CategoryService', () => {
       { name: 'Categoría B', description: 'Descripción B' }
     ];
 
-    service.getCategories(1, 10, 'asc').subscribe((categories) => {
+    service.getCategories(1, 10, 'ASC').subscribe((categories) => {
       expect(categories).toEqual(mockCategories);
     });
 
@@ -49,7 +49,7 @@ describe('CategoryService', () => {
       { name: 'Categoría Y', description: 'Descripción Y' }
     ];
 
-    service.getCategories(2, 5, 'desc').subscribe((categories) => {
+    service.getCategories(2, 5, 'DESC').subscribe((categories) => {
       expect(categories).toEqual(mockCategories);
     });
 
