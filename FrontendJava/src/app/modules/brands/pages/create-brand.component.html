@@ -1,1 +1,59 @@
-<p>create-brand works!</p>
+<app-header></app-header>
+<app-notification></app-notification>
+
+<div class="create-brand-container">
+  <h2>Crear Nueva Marca</h2>
+  
+  <!-- Formulario para crear una nueva marca -->
+  <form [formGroup]="brandForm" (ngSubmit)="onSubmit()">
+    
+    <!-- Campo de entrada para el nombre de la marca -->
+    <div>
+      <label for="name">Nombre de la Marca:</label>
+      
+      <!-- Componente reutilizable para el input -->
+      <app-input
+        id="name"
+        formControlName="name"
+        [required]="true"
+        [minlength]="1"
+        [maxlength]="50">
+      </app-input>
+
+      <!-- Mostrar mensajes de error si el campo de nombre no es válido -->
+      <div *ngIf="brandForm?.get('name')?.invalid && brandForm?.get('name')?.touched">
+        <small *ngIf="brandForm?.get('name')?.errors?.['required']">Este campo es requerido</small>
+        <small *ngIf="brandForm?.get('name')?.errors?.['minlength']">Debe tener al menos 1 carácter</small>
+        <small *ngIf="brandForm?.get('name')?.errors?.['maxlength']">No puede exceder 50 caracteres</small>
+      </div>
+    </div>
+
+    <!-- Campo de entrada para la descripción de la marca -->
+    <div>
+      <label for="description">Descripción:</label>
+      
+      <!-- Componente reutilizable para el textarea -->
+      <app-textarea
+        id="description"
+        formControlName="description"
+        [required]="true"
+        [maxlength]="90">
+      </app-textarea>
+
+      <!-- Mostrar mensajes de error si el campo de descripción no es válido -->
+      <div *ngIf="brandForm?.get('description')?.invalid && brandForm?.get('description')?.touched">
+        <small *ngIf="brandForm?.get('description')?.errors?.['required']">Este campo es requerido</small>
+        <small *ngIf="brandForm?.get('description')?.errors?.['maxlength']">No puede exceder 90 caracteres</small>
+      </div>
+    </div>
+
+    <!-- Botón para enviar el formulario -->
+    <app-button
+      class="btn-create"
+      label="Crear Marca"
+      icon="Save"
+      type="submit"
+      [disabled]="brandForm.invalid">
+    </app-button>
+  </form>
+</div>
