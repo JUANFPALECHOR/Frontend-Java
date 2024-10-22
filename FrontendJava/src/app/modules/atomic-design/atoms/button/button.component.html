@@ -1,4 +1,4 @@
-<button [type]="type" [disabled]="disabled" class="btn">
-    {{ label }}
-  </button>
-  
+<button [ngClass]="class" [attr.type]="type" [disabled]="disabled">
+  {{ label }}
+  <img *ngIf="icon" [src]="'assets/icons/' + icon + '.svg'" alt="{{ icon }}" class="icon">
+</button>

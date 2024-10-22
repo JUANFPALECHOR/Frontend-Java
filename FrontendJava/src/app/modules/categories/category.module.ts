@@ -20,7 +20,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     ReactiveFormsModule, 
-    RouterModule.forChild(routes),  // Usar `forChild` para rutas de submódulos
+    RouterModule.forChild(routes), 
     AtomicModule
 
 

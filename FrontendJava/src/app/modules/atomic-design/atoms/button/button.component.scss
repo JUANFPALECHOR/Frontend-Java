@@ -1,0 +1,74 @@
+// Variables de color
+$color-border: #9D3FE7;  // Morado
+$color-hover-background: #9D3FE7;  // Fondo morado en hover
+$color-hover-text: white;  // Texto blanco en hover
+$color-active-background: #7A2FC3;  // Fondo más oscuro en active
+$color-disabled-background: #D4D2D5;  // Fondo gris en disabled
+$color-disabled-border: #ABA7AF;  // Borde gris en disabled
+$color-text-default: #9D3FE7;  // Texto morado
+
+// Estilos para los botones
+button {
+  &.btn-create {
+    font-size: 13px;
+    padding: 10px 20px;
+    border: 2px solid $color-border;  /* Color del borde (Secondary) */
+    background-color: transparent;  /* Fondo transparente */
+    color: $color-text-default;  /* Color de texto morado */
+    display: flex;
+    align-items: center; /* Para alinear el icono y el texto */
+    gap: 8px; /* Espacio entre el icono y el texto */
+    border-radius: 8px; /* Bordes redondeados */
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+
+    &:hover {
+      background-color: $color-hover-background; /* Fondo morado */
+      color: $color-hover-text; /* Texto en blanco */
+    }
+
+    &:active {
+      background-color: $color-active-background; /* Fondo morado más oscuro */
+      border-color: $color-active-background;
+    }
+
+    &:disabled {
+      background-color: $color-disabled-background; /* Gris claro */
+      border-color: $color-disabled-border;
+      color: $color-hover-text;
+      cursor: not-allowed;
+    }
+  }
+
+  &.btn-pagination {
+    display: inline-flex;  /* Asegura que los botones se comporten como elementos en línea */
+    flex: 0 0 auto;
+    font-size: 15px;
+    padding: 3px 10px;
+    border: 2px solid $color-border;  /* Color del borde (Secondary) */
+    background-color: transparent;  /* Fondo transparente */
+    color: $color-text-default;  /* Color de texto morado */
+    align-items: center; /* Para alinear el icono y el texto */
+    gap: 8px; /* Espacio entre el icono y el texto */
+    border-radius: 8px; /* Bordes redondeados */
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+
+    &:hover {
+      background-color: $color-hover-background; /* Fondo morado */
+      color: $color-hover-text; /* Texto en blanco */
+    }
+
+    &:active {
+      background-color: $color-active-background; /* Fondo morado más oscuro */
+      border-color: $color-active-background;
+    }
+
+    &:disabled {
+      background-color: $color-disabled-background; /* Gris claro */
+      border-color: $color-disabled-border;
+      color: $color-hover-text;
+      cursor: not-allowed;
+    }
+  }
+}

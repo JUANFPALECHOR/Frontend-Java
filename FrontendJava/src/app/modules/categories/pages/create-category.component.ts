@@ -1,17 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CategoryService, Category } from '../../../core/services/category.service';  
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NotificationComponent } from './../../atomic-design/atoms/notification/notification.component';
+
 
 @Component({
   selector: 'app-create-category',
   templateUrl: './create-category.component.html',
-  styleUrls: ['./create-category.component.css']
+  styleUrls: ['./create-category.component.scss']
 })
 export class CreateCategoryComponent implements OnInit {
+  @ViewChild(NotificationComponent) notificationComponent!: NotificationComponent;
   categoryForm!: FormGroup;  // Formulario para crear categorías
   categories: Category[] = [];  // Almacena las categorías obtenidas
-  currentPage: number = 0;  // Página actual para la paginación
+  currentPage: number = 0; // Página actual para la paginación
+  totalPages: number = 0;
   currentSortDirection: 'ASC' | 'DESC' = 'ASC';  // Orden de las categorías
   hasMoreCategories: boolean = true;  // Indica si hay más categorías disponibles para paginación
 
@@ -40,7 +44,7 @@ export class CreateCategoryComponent implements OnInit {
       console.log('Formulario enviado', this.categoryForm.value);
       this.categoryService.createCategory(this.categoryForm.value).subscribe({
         next: (response) => {
-          console.log('Categoría creada con éxito:', response);
+          this.notificationComponent.show('Categoría creada con éxito', 'success');
         },
         error: (error) => {
           console.error('Error al crear la categoría:', error);
@@ -63,6 +67,7 @@ export class CreateCategoryComponent implements OnInit {
         this.categories = response.content;
         this.currentPage = page;
         this.hasMoreCategories = !response.last;
+        this.totalPages = response.totalPages;
         this.currentSortDirection = sortDirection;
         console.log('Categorías obtenidas:', this.categories);
       },

@@ -1,3 +1,5 @@
+<app-header></app-header>
+<app-notification></app-notification>
 <div class="create-category-container">
   <h2>Crear Nueva Categoría</h2>
   
@@ -46,7 +48,9 @@
 
     <!-- Botón para enviar el formulario, reutilizando el componente 'app-button' -->
     <app-button
+      class="btn-create"
       label="Crear Categoría"
+      icon="Save"
       type="submit"
       [disabled]="categoryForm.invalid">
     </app-button>
@@ -59,13 +63,15 @@
   <!-- Botones para ordenar las categorías -->
   <div class="sort-controls">
     <!-- Ordenar de forma ascendente -->
-    <app-button label="Orden Ascendente" 
+    <app-button label="A-Z" 
+       class="btn-pagination"
       (click)="getCategories(0, 10, 'ASC')" 
       (keydown.enter)="getCategories(0, 10, 'ASC')">
     </app-button>
 
     <!-- Ordenar de forma descendente -->
-    <app-button label="Orden Descendente" 
+    <app-button label="Z-A"
+       class="btn-pagination"
       (click)="getCategories(0, 10, 'DESC')" 
       (keydown.enter)="getCategories(0, 10, 'DESC')">
     </app-button>
@@ -93,18 +99,33 @@
   </div>
 
   <!-- Controles de paginación para navegar entre páginas de categorías -->
-  <div class="pagination-controls">
+  <div class="pagination-container">
     <!-- Botón para ir a la página anterior -->
     <app-button 
-      label="Anterior" 
+      class="btn-pagination"
+      label="&#8592;" 
       (click)="getCategories(currentPage - 1, 10, currentSortDirection)" 
       [disabled]="currentPage === 0"
       (keydown)="handleKeyPress($event)">
+      
     </app-button>
+
+    <!-- Números de páginas con condicionales -->
+    <span class="pagination-container" *ngIf="currentPage > 1" (click)="getCategories(0, 10, currentSortDirection)" (keydown)="handleKeyPress($event)">1</span>
+    <span class="pagination-container" *ngIf="currentPage > 2">...</span>
+
+    <span class="pagination-container" *ngIf="currentPage > 0" (click)="getCategories(currentPage - 1, 10, currentSortDirection)" (keydown)="handleKeyPress($event)">
+      {{ currentPage }}
+    </span>
+    <span class="pagination-container active">{{ currentPage + 1 }}</span> <!-- Página actual -->
+    <span class="pagination-container" *ngIf="currentPage + 1 < totalPages" (click)="getCategories(currentPage + 1, 10, currentSortDirection)" (keydown)="handleKeyPress($event)">
+      {{ currentPage + 2 }}
+    </span>
 
     <!-- Botón para ir a la página siguiente -->
     <app-button 
-      label="Siguiente" 
+      class="btn-pagination"
+      label="&#8594;" 
       (click)="getCategories(currentPage + 1, 10, currentSortDirection)" 
       [disabled]="!hasMoreCategories"
       (keydown)="handleKeyPress($event)">

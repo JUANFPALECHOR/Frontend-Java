@@ -8,7 +8,7 @@ const routes: Routes = [
     path: 'categories',  // Ruta principal para categorías
     loadChildren: () => import('../modules/categories/category.module').then(m => m.CategoryModule) 
   },
-  { path: '**', redirectTo: 'categories/new' }   // Ruta comodín para redirigir rutas no encontradas
+  { path: '**', redirectTo: 'categoria/new' }   // Ruta comodín para redirigir rutas no encontradas
 ];
 
 @NgModule({

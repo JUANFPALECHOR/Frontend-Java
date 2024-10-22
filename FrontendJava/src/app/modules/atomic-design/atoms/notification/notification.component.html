@@ -1,0 +1,11 @@
+<div class="notification-container" *ngIf="showNotification">
+    <div class="notification" [ngClass]="notificationType">
+      <span class="icon">
+        <i *ngIf="notificationType === 'success'" class="icon-success"></i>
+        <i *ngIf="notificationType === 'error'" class="icon-error"></i>
+      </span>
+      <span class="message">{{ message }}</span>
+      <button class="close" (click)="closeNotification()">X</button>
+    </div>
+  </div>
+  

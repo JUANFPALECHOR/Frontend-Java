@@ -1,0 +1,109 @@
+// Variables de color
+$color-border: var(--color-border);
+$color-text-active: #9D3FE7;
+$color-text-default: #4A4A4A;
+
+/* Contenedor del formulario */
+.create-category-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+
+  /* Estilos para los inputs */
+  input, 
+  textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid $color-border;
+    margin-bottom: 10px;
+    font-size: 14px;
+  }
+
+  /* Estilo del botón de crear categoría */
+  app-button {
+    width: 100%;
+    margin-top: 10px;
+
+    &.btn-create {
+      width: auto; /* Permite que el botón se ajuste al contenido */
+      margin-top: 10px;
+    }
+  }
+}
+
+/* Estilos para los botones de ordenamiento */
+.sort-controls {
+  display: flex;   /* Convierte al contenedor en un flexbox */
+  gap: 10px;       /* Añade espacio entre los botones */
+  justify-content: flex-start;
+}
+
+/* Estilos para la paginación */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  gap: 10px;
+  font-size: 17px;
+
+  span {
+    cursor: pointer;
+    padding: 5px;
+    color: $color-text-default;
+
+    &:hover {
+      color: $color-text-active; /* Cambia el color al pasar el cursor */
+    }
+  }
+
+  .active {
+    color: $color-text-active;
+  }
+}
+
+.category-list {
+  width: 100%;
+  margin: 20px 0;
+
+  table {
+    width: 100%;
+    border-collapse: collapse;  /* Elimina el espacio entre celdas */
+    font-size: 16px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Añade una sombra para destacarlo */
+  }
+
+  th, td {
+    padding: 12px 15px;  /* Espaciado dentro de las celdas */
+    border-bottom: 1px solid #e0e0e0;  /* Bordes suaves entre filas */
+    text-align: left;
+  }
+
+  th {
+    background-color: #f4f4f4;  /* Color de fondo del encabezado */
+    text-transform: uppercase;  /* Texto en mayúsculas */
+    font-weight: bold;
+    color: #333;
+    border-bottom: 2px solid #9D3FE7;  /* Agrega un borde inferior más grueso */
+  }
+
+  tbody tr:hover {
+    background-color: #f1f1f1;  /* Fondo suave al pasar el cursor sobre una fila */
+  }
+
+  td {
+    color: #555;  /* Color de texto más oscuro para las celdas */
+  }
+
+  /* Estilo alternativo para filas */
+  tbody tr:nth-child(even) {
+    background-color: #fafafa;  /* Fondo diferente para las filas pares */
+  }
+
+  /* Estilo de las filas impares */
+  tbody tr:nth-child(odd) {
+    background-color: #fff;  /* Fondo blanco para filas impares */
+  }
+
+}
+

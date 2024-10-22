@@ -1,1 +1,20 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+    --color-purple: #9D3FE7;
+    --color-gradient-start: #9D3FE7;
+    --color-gradient-end: #602093;
+    --color-black: #1A141F;
+    --color-hint-text: #4B3A5A;
+    --color-border: #ABA7AF;
+    --color-disabled: #D4D2D5;
+    --color-spacer: #D9D1E0;
+    --color-bg-light-grey: #F5F3F7;
+    --color-white: #FFFFFF;
+  
+    --color-error: #D51A52;
+    --color-attention: #FF9500;
+    --color-approval: #00B998;
+    --color-link: #0F0BAB;
+  }
+  body {
+    font-family: 'Poppins', sans-serif;
+  }
