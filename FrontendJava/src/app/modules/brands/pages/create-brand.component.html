@@ -1,17 +1,11 @@
 <app-header></app-header>
 <app-notification></app-notification>
-
 <div class="create-brand-container">
   <h2>Crear Nueva Marca</h2>
   
-  <!-- Formulario para crear una nueva marca -->
   <form [formGroup]="brandForm" (ngSubmit)="onSubmit()">
-    
-    <!-- Campo de entrada para el nombre de la marca -->
     <div>
       <label for="name">Nombre de la Marca:</label>
-      
-      <!-- Componente reutilizable para el input -->
       <app-input
         id="name"
         formControlName="name"
@@ -19,8 +13,6 @@
         [minlength]="1"
         [maxlength]="50">
       </app-input>
-
-      <!-- Mostrar mensajes de error si el campo de nombre no es válido -->
       <div *ngIf="brandForm?.get('name')?.invalid && brandForm?.get('name')?.touched">
         <small *ngIf="brandForm?.get('name')?.errors?.['required']">Este campo es requerido</small>
         <small *ngIf="brandForm?.get('name')?.errors?.['minlength']">Debe tener al menos 1 carácter</small>
@@ -28,26 +20,20 @@
       </div>
     </div>
 
-    <!-- Campo de entrada para la descripción de la marca -->
     <div>
       <label for="description">Descripción:</label>
-      
-      <!-- Componente reutilizable para el textarea -->
       <app-textarea
         id="description"
         formControlName="description"
         [required]="true"
         [maxlength]="90">
       </app-textarea>
-
-      <!-- Mostrar mensajes de error si el campo de descripción no es válido -->
       <div *ngIf="brandForm?.get('description')?.invalid && brandForm?.get('description')?.touched">
         <small *ngIf="brandForm?.get('description')?.errors?.['required']">Este campo es requerido</small>
         <small *ngIf="brandForm?.get('description')?.errors?.['maxlength']">No puede exceder 90 caracteres</small>
       </div>
     </div>
 
-    <!-- Botón para enviar el formulario -->
     <app-button
       class="btn-create"
       label="Crear Marca"
@@ -56,4 +42,53 @@
       [disabled]="brandForm.invalid">
     </app-button>
   </form>
+
+  <hr>
+
+  <h2>Marcas</h2>
+  
+  <div class="brand-list">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let brand of brands">
+          <td>{{ brand.id }}</td>
+          <td>{{ brand.name }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Controles de paginación para navegar entre páginas de marcas -->
+  <div class="pagination-container">
+    <app-button 
+      class="btn-pagination"
+      label="&#8592;" 
+      (click)="getBrands(currentPage - 1, 10, currentSortDirection)" 
+      [disabled]="currentPage === 0"
+      (keydown)="handleKeyPress($event)">
+    </app-button>
+
+    <span class="pagination-container" *ngIf="currentPage > 1" (click)="getBrands(0, 10, currentSortDirection)" (keydown)="handleKeyPress($event)">1</span>
+    <span class="pagination-container" *ngIf="currentPage > 2">...</span>
+    <span class="pagination-container" *ngIf="currentPage > 0" (click)="getBrands(currentPage - 1, 10, currentSortDirection)" (keydown)="handleKeyPress($event)">
+      {{ currentPage }}
+    </span>
+    <span class="pagination-container active">{{ currentPage + 1 }}</span>
+    <span class="pagination-container" *ngIf="currentPage + 1 < totalPages" (click)="getBrands(currentPage + 1, 10, currentSortDirection)" (keydown)="handleKeyPress($event)">
+      {{ currentPage + 2 }}
+    </span>
+    <app-button 
+      class="btn-pagination"
+      label="&#8594;" 
+      (click)="getBrands(currentPage + 1, 10, currentSortDirection)" 
+      [disabled]="!hasMoreBrands"
+      (keydown)="handleKeyPress($event)">
+    </app-button>
+  </div>
 </div>

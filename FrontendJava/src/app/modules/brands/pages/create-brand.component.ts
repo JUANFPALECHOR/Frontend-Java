@@ -75,4 +75,11 @@ export class CreateBrandComponent implements OnInit {
       }
     });
   }
+  // Maneja la acción cuando se presiona la tecla 'Enter'
+  handleKeyPress(event: KeyboardEvent): void {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      console.log('Enter key pressed');
+    }
+  }  
 }
