@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { BrandService } from '../../../core/services/brand.service';  
+import { BrandService, Brand } from '../../../core/services/brand.service';  
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NotificationComponent } from './../../atomic-design/atoms/notification/notification.component';
+
 
 @Component({
   selector: 'app-create-brand',
@@ -11,16 +12,22 @@ import { NotificationComponent } from './../../atomic-design/atoms/notification/
 })
 export class CreateBrandComponent implements OnInit {
   @ViewChild(NotificationComponent) notificationComponent!: NotificationComponent;
-  brandForm!: FormGroup;  // Formulario para crear marcas (Brand)
+  brandForm!: FormGroup;
+  brands: Brand[] = [];  // Almacena las marcas obtenidas
+  currentPage: number = 0; // Página actual para la paginación
+  totalPages: number = 0;
+  currentSortDirection: 'ASC' | 'DESC' = 'ASC';  // Orden de las marcas
+  hasMoreBrands: boolean = true;  // Indica si hay más marcas disponibles para paginación
 
   constructor(
-    private readonly formBuilder: FormBuilder,  // Constructor para crear el formulario
-    private readonly brandService: BrandService,  // Servicio para manejar marcas
-    private readonly router: Router  // Router para posibles redirecciones
+    private readonly formBuilder: FormBuilder,
+    private readonly brandService: BrandService,
+    private readonly router: Router
   ) {}
 
   ngOnInit(): void {
     this.initializeForm();  // Inicializa el formulario en la carga del componente
+    this.getBrands(this.currentPage, 10, this.currentSortDirection);  // Obtiene las primeras marcas
   }
 
   // Inicializa el formulario con validaciones para los campos 'name' y 'description'
@@ -46,5 +53,26 @@ export class CreateBrandComponent implements OnInit {
     } else {
       console.log('Formulario no válido');
     }
+  }
+
+  // Método para obtener las marcas con paginación y ordenación
+  getBrands(page: number, size: number, sortDirection: 'ASC' | 'DESC'): void {
+    if (sortDirection !== this.currentSortDirection || page !== this.currentPage) {
+      this.brands = [];
+    }
+
+    this.brandService.getBrands(page, size, sortDirection).subscribe({
+      next: (response) => {
+        this.brands = response.content;
+        this.currentPage = page;
+        this.hasMoreBrands = !response.last;
+        this.totalPages = response.totalPages;
+        this.currentSortDirection = sortDirection;
+        console.log('Marcas obtenidas:', this.brands);
+      },
+      error: (error) => {
+        console.error('Error al obtener las marcas:', error);
+      }
+    });
   }
 }
