@@ -3,13 +3,11 @@ $color-border: var(--color-border);
 $color-text-active: #9D3FE7;
 $color-text-default: #4A4A4A;
 
-/* Contenedor del formulario */
 .create-brand-container {
   max-width: 600px;
   margin: 0 auto;
   padding: 20px;
 
-  /* Estilos para los inputs */
   input, 
   textarea {
     width: 100%;
@@ -20,15 +18,77 @@ $color-text-default: #4A4A4A;
     font-size: 14px;
   }
 
-  /* Estilo del botón de crear marca */
   app-button {
     width: 100%;
     margin-top: 10px;
 
     &.btn-create {
-      width: auto; /* Permite que el botón se ajuste al contenido */
+      width: auto;
       margin-top: 10px;
     }
   }
 }
 
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  gap: 10px;
+  font-size: 17px;
+
+  span {
+    cursor: pointer;
+    padding: 5px;
+    color: $color-text-default;
+
+    &:hover {
+      color: $color-text-active;
+    }
+  }
+
+  .active {
+    color: $color-text-active;
+  }
+}
+
+.brand-list {
+  width: 100%;
+  margin: 20px 0;
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  th, td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #e0e0e0;
+    text-align: left;
+  }
+
+  th {
+    background-color: #f4f4f4;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #333;
+    border-bottom: 2px solid #9D3FE7;
+  }
+
+  tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+
+  td {
+    color: #555;
+  }
+
+  tbody tr:nth-child(even) {
+    background-color: #fafafa;
+  }
+
+  tbody tr:nth-child(odd) {
+    background-color: #fff;
+  }
+}

@@ -45,9 +45,17 @@ export class CreateCategoryComponent implements OnInit {
       this.categoryService.createCategory(this.categoryForm.value).subscribe({
         next: (response) => {
           this.notificationComponent.show('Categoría creada con éxito', 'success');
+          this.categoryForm.reset();
+          this.getCategories(this.currentPage, 10, this.currentSortDirection);
         },
         error: (error) => {
-          console.error('Error al crear la categoría:', error);
+          if (error.status === 409) {
+            // Muestra una notificación de alerta para duplicados
+            this.notificationComponent.show('La categoría ya existe', 'error');
+          } else {
+            console.error('Error al crear la categoría:', error);
+            this.notificationComponent.show('Error al crear la categoría', 'error');
+          }
         }
       });
     } else {

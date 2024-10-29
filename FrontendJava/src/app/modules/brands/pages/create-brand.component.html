@@ -46,6 +46,27 @@
   <hr>
 
   <h2>Marcas</h2>
+
+  <!-- Botones para ordenar las categorías -->
+  <div class="sort-controls">
+    <!-- Ordenar de forma ascendente -->
+    <app-button label="A-Z" 
+       class="btn-pagination"
+      (click)="getBrands(0, 10, 'ASC')" 
+      (keydown.enter)="getBrands(0, 10, 'ASC')">
+    </app-button>
+
+    <!-- Ordenar de forma descendente -->
+    <app-button label="Z-A"
+       class="btn-pagination"
+      (click)="getBrands(0, 10, 'DESC')" 
+      (keydown.enter)="getBrands(0, 10, 'DESC')">
+    </app-button>
+  </div>
+
+  <hr>
+
+
   
   <div class="brand-list">
     <table>

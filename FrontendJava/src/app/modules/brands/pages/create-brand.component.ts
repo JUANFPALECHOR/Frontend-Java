@@ -45,15 +45,24 @@ export class CreateBrandComponent implements OnInit {
       this.brandService.createBrand(this.brandForm.value).subscribe({
         next: (response) => {
           this.notificationComponent.show('Marca creada con éxito', 'success');
+          this.brandForm.reset();
+          this.getBrands(this.currentPage, 10, this.currentSortDirection);
         },
         error: (error) => {
-          console.error('Error al crear la marca:', error);
+          if (error.status === 409) {
+            // Muestra una notificación de alerta para duplicados
+            this.notificationComponent.show('La Marca ya existe', 'error');
+          } else {
+            console.error('Error al crear la categoría:', error);
+            this.notificationComponent.show('Error al crear la Marca', 'error');
+          }
         }
       });
     } else {
       console.log('Formulario no válido');
     }
   }
+  
 
   // Método para obtener las marcas con paginación y ordenación
   getBrands(page: number, size: number, sortDirection: 'ASC' | 'DESC'): void {

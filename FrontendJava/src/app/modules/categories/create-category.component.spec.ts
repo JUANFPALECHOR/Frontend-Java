@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, flush, tick } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CreateCategoryComponent } from './pages/create-category.component';
 import { CategoryService } from './../../core/services/category.service';
@@ -7,6 +7,9 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ButtonComponent } from './../atomic-design/atoms/button/button.component';
 import { InputComponent } from './../atomic-design/atoms/input/input.component';
 import { TextareaComponent } from './../atomic-design/atoms/textarea/textarea.component';
+import { HeaderComponent } from './../atomic-design/organisms/header/header.component';
+import { NotificationComponent } from './../atomic-design/atoms/notification/notification.component';
+
 
 describe('CreateCategoryComponent', () => {
   let component: CreateCategoryComponent;
@@ -20,7 +23,11 @@ describe('CreateCategoryComponent', () => {
         CreateCategoryComponent,
         ButtonComponent,    
         InputComponent,
-        TextareaComponent
+        TextareaComponent,
+        HeaderComponent,
+        NotificationComponent
+
+
       ],
       providers: [
         CategoryService,
@@ -50,6 +57,7 @@ describe('CreateCategoryComponent', () => {
     component.onSubmit();
   
     tick(); // Simula el tiempo para completar operaciones asíncronas
+    flush();
   
     // Verifica que el servicio createCategory haya sido llamado con los datos correctos
     expect(categoryService.createCategory).toHaveBeenCalledWith({
