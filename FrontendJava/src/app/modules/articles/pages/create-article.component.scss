@@ -1,0 +1,86 @@
+// Variables de color
+$color-border: var(--color-border);
+$color-text-active: #9D3FE7;
+$color-text-default: #4A4A4A;
+
+/* Contenedor del formulario */
+.create-article-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+
+  /* Estilos para los inputs */
+  input,
+  textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid $color-border;
+    margin-bottom: 10px;
+    font-size: 14px;
+  }
+
+  /* Estilo del botón de crear artículo */
+  app-button {
+    width: 100%;
+    margin-top: 10px;
+
+    &.btn-create {
+      width: auto; /* Permite que el botón se ajuste al contenido */
+      margin-top: 10px;
+    }
+  }
+
+  /* Estilos específicos para las etiquetas y mensajes de error */
+  label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  small {
+    color: red;
+    display: block;
+    margin-top: 5px;
+  }
+}
+
+/* Estilos generales para las secciones del formulario */
+.create-article-container div {
+  margin-bottom: 20px;
+}
+
+/* Estilos específicos para los campos de selección y entrada */
+#categoryIds {
+  &::placeholder {
+    color: $color-text-default;
+    opacity: 0.7;
+  }
+}
+
+#price, #quantity, #brandId {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid $color-border;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+/* Ajustes para el input de precio */
+#price {
+  &::-webkit-inner-spin-button, &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  -moz-appearance: textfield;
+}
+
+/* Ajustes para el input de cantidad */
+#quantity {
+  &::-webkit-inner-spin-button, &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  -moz-appearance: textfield;
+}

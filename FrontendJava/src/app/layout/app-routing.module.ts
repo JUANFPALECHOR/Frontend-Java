@@ -11,6 +11,10 @@ const routes: Routes = [
     path: 'brands',  // Ruta principal para Brand
     loadChildren: () => import('../modules/brands/brand.module').then(m => m.BrandModule) 
   },
+  {
+    path: 'articles',  // Ruta principal para Brand
+    loadChildren: () => import('../modules/articles/articles.module').then(m => m.ArticlesModule)
+  },
   { path: '**', redirectTo: 'categoria/new' }   // Ruta comodín para redirigir rutas no encontradas
 ];
 

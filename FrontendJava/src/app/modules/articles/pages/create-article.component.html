@@ -1,0 +1,113 @@
+<app-header></app-header>
+<app-notification></app-notification>
+<div class="create-article-container">
+  <h2>Crear Nuevo Artículo</h2>
+
+  <!-- Formulario para crear un nuevo artículo -->
+  <form [formGroup]="articleForm" (ngSubmit)="onSubmit()">
+    <!-- Campo de entrada para el nombre del artículo -->
+    <div>
+      <label for="name">Nombre del Artículo:</label>
+      <app-input
+        id="name"
+        formControlName="name"
+        [required]="true"
+        [minlength]="1"
+        [maxlength]="50">
+      </app-input>
+      <div *ngIf="articleForm.get('name')?.invalid && articleForm.get('name')?.touched">
+        <small *ngIf="articleForm.get('name')?.errors?.['required']">Este campo es requerido</small>
+        <small *ngIf="articleForm.get('name')?.errors?.['minlength']">Debe tener al menos 1 carácter</small>
+        <small *ngIf="articleForm.get('name')?.errors?.['maxlength']">No puede exceder 50 caracteres</small>
+      </div>
+    </div>
+
+    <!-- Campo de entrada para la descripción del artículo -->
+    <div>
+      <label for="description">Descripción:</label>
+      <app-textarea
+        id="description"
+        formControlName="description"
+        [required]="true"
+        [maxlength]="90">
+      </app-textarea>
+      <div *ngIf="articleForm.get('description')?.invalid && articleForm.get('description')?.touched">
+        <small *ngIf="articleForm.get('description')?.errors?.['required']">Este campo es requerido</small>
+        <small *ngIf="articleForm.get('description')?.errors?.['maxlength']">No puede exceder 90 caracteres</small>
+      </div>
+    </div>
+
+    <!-- Campo de entrada para la cantidad del artículo -->
+    <div>
+      <label for="quantity">Cantidad:</label>
+      <app-input
+        id="quantity"
+        formControlName="quantity"
+        [type]="'number'"
+        [required]="true"
+        min="0">
+      </app-input>
+      <div *ngIf="articleForm.get('quantity')?.invalid && articleForm.get('quantity')?.touched">
+        <small *ngIf="articleForm.get('quantity')?.errors?.['required']">Este campo es requerido</small>
+        <small *ngIf="articleForm.get('quantity')?.errors?.['min']">La cantidad no puede ser negativa</small>
+      </div>
+    </div>
+
+    <!-- Campo de entrada para el precio del artículo -->
+    <div>
+      <label for="price">Precio:</label>
+      <app-input
+        id="price"
+        formControlName="price"
+        [type]="'number'"
+        step="0.01"
+        [required]="true"
+        min="0.01">
+      </app-input>
+      <div *ngIf="articleForm.get('price')?.invalid && articleForm.get('price')?.touched">
+        <small *ngIf="articleForm.get('price')?.errors?.['required']">Este campo es requerido</small>
+        <small *ngIf="articleForm.get('price')?.errors?.['min']">El precio debe ser mayor que cero</small>
+      </div>
+    </div>
+
+    <!-- Campo de selección para las categorías del artículo -->
+    <div>
+      <label for="categoryIds">Categorías:</label>
+      <app-input
+        id="categoryIds"
+        formControlName="categoryIds"
+        [type]="'text'"
+        [required]="true"
+        [placeholder]="'IDs de categorías, separados por comas'">
+      </app-input>
+      <div *ngIf="articleForm.get('categoryIds')?.invalid && articleForm.get('categoryIds')?.touched">
+        <small *ngIf="articleForm.get('categoryIds')?.errors?.['required']">Este campo es requerido</small>
+        <small *ngIf="articleForm.get('categoryIds')?.errors?.['minlength']">Debe tener al menos 1 categoría</small>
+        <small *ngIf="articleForm.get('categoryIds')?.errors?.['maxlength']">No puede tener más de 3 categorías</small>
+      </div>
+    </div>
+
+    <!-- Campo de entrada para el ID de la marca del artículo -->
+    <div>
+      <label for="brandId">ID de la Marca:</label>
+      <app-input
+        id="brandId"
+        formControlName="brandId"
+        [type]="'number'"
+        [required]="true">
+      </app-input>
+      <div *ngIf="articleForm.get('brandId')?.invalid && articleForm.get('brandId')?.touched">
+        <small *ngIf="articleForm.get('brandId')?.errors?.['required']">Este campo es requerido</small>
+      </div>
+    </div>
+
+    <!-- Botón para enviar el formulario, reutilizando el componente 'app-button' -->
+    <app-button
+      class="btn-create"
+      label="Crear Artículo"
+      icon="Save"
+      type="submit"
+      [disabled]="articleForm.invalid">
+    </app-button>
+  </form>
+</div>
