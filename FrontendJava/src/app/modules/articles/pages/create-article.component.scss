@@ -43,6 +43,45 @@ $color-text-default: #4A4A4A;
     display: block;
     margin-top: 5px;
   }
+
+  /* Ajustes para el contenedor del campo de autocompletado */
+  .autocomplete-container {
+    position: relative;
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid $color-border;
+      font-size: 14px;
+    }
+
+    ul.suggestions {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      max-height: 200px;
+      overflow-y: auto;
+      border: 1px solid $color-border;
+      background-color: white;
+      list-style: none;
+      padding: 0;
+      margin: 5px 0 0;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      border-radius: 0 0 5px 5px;
+
+      li {
+        padding: 10px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #f0f0f0;
+        }
+      }
+    }
+  }
 }
 
 /* Estilos generales para las secciones del formulario */
@@ -58,7 +97,7 @@ $color-text-default: #4A4A4A;
   }
 }
 
-#price, #quantity, #brandId {
+#price, #quantity {
   width: 100%;
   padding: 10px;
   border-radius: 5px;
